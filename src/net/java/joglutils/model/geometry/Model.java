@@ -45,6 +45,7 @@ public class Model
     protected String source;
     
     protected boolean renderModel = true;
+    protected boolean renderPicker = false;
     protected boolean centerModel = false;
     protected boolean renderModelBounds = false;
     protected boolean renderObjectBounds = false;
@@ -112,6 +113,10 @@ public class Model
         this.renderModel = renderModel;
     }
 
+    public void setRenderPicker(boolean renderPicker) {
+        this.renderPicker = renderPicker;
+    }
+    
     public boolean isCentered() {
         return centerModel;
     }
@@ -124,6 +129,10 @@ public class Model
         return renderModelBounds;
     }
 
+    public boolean isRenderPicker() {
+        return renderPicker;
+    }
+    
     public void setRenderModelBounds(boolean renderModelBounds) {
         this.renderModelBounds = renderModelBounds;
     }
