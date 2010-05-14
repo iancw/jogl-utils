@@ -72,4 +72,14 @@
 			<fileset dir="${output.tmp.dir}" />
 		</jar>
 	</target>
+
+    <target name="jar.with.source" depends="compile">
+        <delete file="${output.jar}" failonerror="false" />
+        <jar destfile="${output.jar}">
+            <fileset dir="${output.tmp.dir}"
+		     includes="net/**" />
+            <fileset dir="${src.dir}"
+		     includes="net/**" />
+        </jar>
+    </target>
 </project>
