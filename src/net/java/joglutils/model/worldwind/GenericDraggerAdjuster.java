@@ -134,7 +134,7 @@ public class GenericDraggerAdjuster implements SelectListener {
                     } else {
                         altitude = theObject.getPosition().getElevation() + altitude;
                     }
-                    theObject.setPosition(new Position(theObject.getPosition().getLatLon(), altitude));
+                    theObject.setPosition(new Position(theObject.getPosition(), altitude));
                     break;
 
                 default:
@@ -225,7 +225,7 @@ public class GenericDraggerAdjuster implements SelectListener {
             if (pickPos != null) {
                 // Intersection with globe. Move reference point to the intersection point,
                 // but maintain current altitude.
-                Position p = new Position(pickPos.getLatLon(), dragObject.getReferencePosition().getElevation());
+                Position p = new Position(pickPos, dragObject.getReferencePosition().getElevation());
                 dragObject.moveTo(p);
             }
             this.dragging = true;

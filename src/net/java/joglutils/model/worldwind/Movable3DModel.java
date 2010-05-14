@@ -162,7 +162,7 @@ public class Movable3DModel implements Renderable, Movable, Adjustable {
             throw new IllegalArgumentException(msg);
         }
         Vec4 newRef = this.globe.computePointFromPosition(position);
-        Angle distance = LatLon.greatCircleDistance(this.getPosition().getLatLon(), position.getLatLon());
+        Angle distance = LatLon.greatCircleDistance(this.getPosition(), position);
         Vec4 axis = this.referenceCenterPoint.cross3(newRef).normalize3();
         Vec4 p = this.globe.computePointFromPosition(this.getPosition());
         p = p.transformBy3(Quaternion.fromAxisAngle(distance, axis));
