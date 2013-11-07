@@ -43,9 +43,9 @@ import java.net.*;
 import java.util.*;
 
 import javax.media.opengl.*;
-import com.jogamp.opengl.util.awt.*;
-import com.jogamp.opengl.util.texture.*;
-import com.jogamp.opengl.util.texture.awt.*;
+import com.sun.opengl.util.awt.*;
+import com.sun.opengl.util.texture.*;
+import com.sun.opengl.util.texture.awt.*;
 
 import net.java.joglutils.msg.actions.*;
 import net.java.joglutils.msg.elements.*;

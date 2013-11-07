@@ -50,7 +50,7 @@ import javax.swing.event.*;
 
 import javax.media.opengl.*;
 import javax.media.opengl.awt.*;
-import com.jogamp.opengl.util.awt.*;
+import com.sun.opengl.util.awt.*;
 
 import net.java.joglutils.msg.actions.*;
 import net.java.joglutils.msg.collections.*;
