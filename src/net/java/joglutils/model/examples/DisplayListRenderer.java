@@ -10,8 +10,8 @@
 package net.java.joglutils.model.examples;
 
 import net.java.joglutils.model.*;
-import com.sun.opengl.util.texture.*;
-import com.sun.opengl.util.texture.awt.*;
+import com.jogamp.opengl.util.texture.*;
+import com.jogamp.opengl.util.texture.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;

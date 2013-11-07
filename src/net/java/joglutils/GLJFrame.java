@@ -41,7 +41,7 @@ import javax.media.opengl.awt.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import com.sun.opengl.util.Animator;
+import com.jogamp.opengl.util.Animator;
 
 /**
  * A JFrame containing a heavyweight {@link GLCanvas} with a single attached {@link GLEventListener}. 

@@ -41,7 +41,7 @@ import java.nio.*;
 import java.util.*;
 
 import javax.media.opengl.*;
-import com.sun.opengl.util.texture.*;
+import com.jogamp.opengl.util.texture.*;
 
 import net.java.joglutils.msg.actions.*;
 import net.java.joglutils.msg.elements.*;
