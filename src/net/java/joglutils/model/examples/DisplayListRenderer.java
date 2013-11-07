@@ -36,10 +36,24 @@ public class DisplayListRenderer implements iModel3DRenderer {
     private static DisplayListRenderer instance = new DisplayListRenderer();
     private DisplayListCache listCache = new DisplayListCache();
     private HashMap<Integer, Texture> texture;
-    private int modelBoundsList = -1;
-    private int objectBoundsList = 1;
     private boolean isDebugging = true;
-    
+
+    /**
+     * offset in the glCallList to access model bounds
+     */
+    private static final int MODEL_BOUNDS_OFFSET = 1;
+
+    /**
+     * offset in the glCallList to access object bounds
+     */
+    private static final int OBJECT_BOUNDS_OFFSET = 2;
+
+    /**
+     * offset in the glCallList to access a texture-free object for picking
+     */
+    private static final int PICKER_OFFSET = 3;
+
+
     /** Creates a new instance of DisplayListModel3D */
     public DisplayListRenderer() {
     }
@@ -108,17 +122,22 @@ public class DisplayListRenderer implements iModel3DRenderer {
             Vec4 center = model.getCenterPoint();
             gl.glTranslatef(-center.x, -center.y, -center.z);
         }
-        
-        if (model.isRenderModel())
-            gl.glCallList(displayList);
-        
-        // Disabled lighting for drawing the boundary lines so they are all white (or whatever I chose)
-        gl.glDisable(GL2.GL_LIGHTING);
-        if (model.isRenderModelBounds())
-            gl.glCallList(modelBoundsList);
-        if (model.isRenderObjectBounds())
-            gl.glCallList(objectBoundsList);
-        
+
+        if (model.isRenderPicker()){
+            gl.glDisable(GL2.GL_TEXTURE_2D); // added by R. Wathelet
+            gl.glCallList(displayList + PICKER_OFFSET);
+        }else {
+            if (model.isRenderModel())
+                gl.glCallList(displayList);
+
+            // Disabled lighting for drawing the boundary lines so they are all white (or whatever I chose)
+            gl.glDisable(GL2.GL_LIGHTING);
+            if (model.isRenderModelBounds())
+                gl.glCallList(displayList + MODEL_BOUNDS_OFFSET);
+            if (model.isRenderObjectBounds())
+                gl.glCallList(displayList + OBJECT_BOUNDS_OFFSET);
+        }
+
         gl.glPopMatrix();
 
         // Reset the flags back for lighting and texture
@@ -211,36 +230,36 @@ public class DisplayListRenderer implements iModel3DRenderer {
         
         if (this.isDebugging)
             System.out.println("\n    Generate Lists:");
-        int compiledList = listCache.generateList(model, gl, 3);
+        int compiledList = listCache.generateList(model, gl, 4);
         
         if (this.isDebugging)
             System.out.println("        Model List");         
         gl.glNewList(compiledList, GL2.GL_COMPILE);
-            genList(gl, model);
+            genList(gl, model, true);
         gl.glEndList();
         
-        modelBoundsList = compiledList + 1;
-
         if (this.isDebugging)
             System.out.println("        Boundary List");                 
-        gl.glNewList(modelBoundsList, GL2.GL_COMPILE);
+        gl.glNewList(compiledList + MODEL_BOUNDS_OFFSET, GL2.GL_COMPILE);
             genModelBoundsList(gl, model);
         gl.glEndList();
         
-        objectBoundsList = compiledList + 2;
-        
         if (this.isDebugging)
             System.out.println("        Object Boundary List");                         
-        gl.glNewList(objectBoundsList, GL2.GL_COMPILE);
+        gl.glNewList(compiledList + OBJECT_BOUNDS_OFFSET, GL2.GL_COMPILE);
             genObjectBoundsList(gl, model);
         gl.glEndList();
-        
+
+        gl.glNewList(compiledList + PICKER_OFFSET, GL2.GL_COMPILE);
+        genList(gl, model, false);
+        gl.glEndList();
+
         if (this.isDebugging)
         {
             System.out.println("    Generate Lists: Done");
             System.out.println("Load Model: Done");
         }
-        
+
         return compiledList;
     }
     
@@ -271,7 +290,7 @@ public class DisplayListRenderer implements iModel3DRenderer {
      * 
      * @param gl
      */
-    private void genList(GL2 gl, Model model) {
+    private void genList(GL2 gl, Model model, boolean isFullRender) {
         TextureCoords coords;
         
         for (int i=0; i<model.getNumberOfMeshes(); i++) {
@@ -282,7 +301,7 @@ public class DisplayListRenderer implements iModel3DRenderer {
                 continue;
             }
      
-            if(tempObj.hasTexture && texture.get(tempObj.materialID) != null) {
+            if(tempObj.hasTexture && texture.get(tempObj.materialID) != null && isFullRender) {
                 Texture t = texture.get(tempObj.materialID);
                 
                 // switch to texture mode and push a new matrix on the stack
@@ -315,7 +334,7 @@ public class DisplayListRenderer implements iModel3DRenderer {
 
                 // If the object has a texture, then do nothing till later...else
                 // apply the material property to it.
-                if(tempObj.hasTexture) { 
+                if(tempObj.hasTexture && isFullRender) { 
                     // nothing
 
                 // Has no texture but has a material instead and this material is
@@ -350,7 +369,7 @@ public class DisplayListRenderer implements iModel3DRenderer {
                         indexType = 0;
                         gl.glNormal3f(tempObj.normals[normalIndex].x, tempObj.normals[normalIndex].y, tempObj.normals[normalIndex].z);
 
-                        if (tempObj.hasTexture) {
+                        if (tempObj.hasTexture && isFullRender) {
                             if (tempObj.texCoords != null) {  
                                 textureIndex = tempObj.faces[j].coordIndex[whichVertex];
                                 indexType = 1;
