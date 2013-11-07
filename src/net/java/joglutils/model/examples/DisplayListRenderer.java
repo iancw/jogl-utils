@@ -214,7 +214,7 @@ public class DisplayListRenderer implements iModel3DRenderer {
                 }
 
                 if (result != null && !result.getPath().endsWith("/") && !result.getPath().endsWith("\\")) {
-                    loadTexture(result, i);
+                    loadTexture(gl.getGLProfile(), result, i);
                     model.getMaterial(i).textureId = i;
                     if (this.isDebugging)
                         System.out.println(" ... done. Texture ID: " + i);
@@ -270,7 +270,7 @@ public class DisplayListRenderer implements iModel3DRenderer {
      * @param url
      * @param id
      */
-    private void loadTexture(URL url, int id) {
+    private void loadTexture(GLProfile glp, URL url, int id) {
         if ( url != null ) {
             BufferedImage bufferedImage = null;
 
@@ -281,7 +281,7 @@ public class DisplayListRenderer implements iModel3DRenderer {
                 return;
             }
             
-            texture.put(id, AWTTextureIO.newTexture(bufferedImage, true));
+            texture.put(id, AWTTextureIO.newTexture(glp, bufferedImage, true));
         }
     }
     

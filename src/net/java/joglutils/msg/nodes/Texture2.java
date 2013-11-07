@@ -99,36 +99,36 @@ public class Texture2 extends Node {
   /** Initializes this texture from the given file. No OpenGL work is
       done during this call; it is done lazily when the Texture is
       fetched. */
-  public void setTexture(File file, boolean mipmap, String fileSuffix) throws IOException {
+  public void setTexture(GLProfile glp, File file, boolean mipmap, String fileSuffix) throws IOException {
     disposeTextureRenderer();
-    data = TextureIO.newTextureData(file, mipmap, fileSuffix);
+    data = TextureIO.newTextureData(glp, file, mipmap, fileSuffix);
     dirty = true;
   }
 
   /** Initializes this texture from the given InputStream. No OpenGL
       work is done during this call; it is done lazily when the
       Texture is fetched. */
-  public void setTexture(InputStream stream, boolean mipmap, String fileSuffix) throws IOException {
+  public void setTexture(GLProfile glp, InputStream stream, boolean mipmap, String fileSuffix) throws IOException {
     disposeTextureRenderer();
-    data = TextureIO.newTextureData(stream, mipmap, fileSuffix);
+    data = TextureIO.newTextureData(glp, stream, mipmap, fileSuffix);
     dirty = true;
   }
 
   /** Initializes this texture from the given URL. No OpenGL work is
       done during this call; it is done lazily when the Texture is
       fetched. */
-  public void setTexture(URL url, boolean mipmap, String fileSuffix) throws IOException {
+  public void setTexture(GLProfile glp, URL url, boolean mipmap, String fileSuffix) throws IOException {
     disposeTextureRenderer();
-    data = TextureIO.newTextureData(url, mipmap, fileSuffix);
+    data = TextureIO.newTextureData(glp, url, mipmap, fileSuffix);
     dirty = true;
   }
 
   /** Initializes this texture from the given BufferedImage. No OpenGL
       work is done during this call; it is done lazily when the
       Texture is fetched. */
-  public void setTexture(BufferedImage image, boolean mipmap) {
+  public void setTexture(GLProfile glp, BufferedImage image, boolean mipmap) {
     disposeTextureRenderer();
-    data = AWTTextureIO.newTextureData(image, mipmap);
+    data = AWTTextureIO.newTextureData(glp, image, mipmap);
     dirty = true;
   }
   
