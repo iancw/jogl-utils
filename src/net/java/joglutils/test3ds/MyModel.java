@@ -111,8 +111,8 @@ public class MyModel extends Model3DS
         for (int i=0; i<objects.size(); i++) {
             Obj tempObj = objects.get(i);
             if(tempObj.hasTexture) {
-                texture[tempObj.materialID].enable();
-                texture[tempObj.materialID].bind();
+                texture[tempObj.materialID].enable(gl);
+                texture[tempObj.materialID].bind(gl);
                 coords = texture[tempObj.materialID].getImageTexCoords();
             }
             
@@ -137,7 +137,7 @@ public class MyModel extends Model3DS
             gl.glEnd();
             
             if (tempObj.hasTexture)
-                texture[tempObj.materialID].disable();
+                texture[tempObj.materialID].disable(gl);
         }
     }
 }
