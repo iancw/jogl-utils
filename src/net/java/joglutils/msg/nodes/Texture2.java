@@ -250,7 +250,7 @@ public class Texture2 extends Node {
 
     if (dirty) {
       if (texture != null) {
-        texture.dispose();
+        texture.destroy();
         texture = null;
       }
       texture = TextureIO.newTexture(data);
@@ -346,7 +346,7 @@ public class Texture2 extends Node {
       synchronized (this) {
         t = disposedTextures.remove(disposedTextures.size() - 1);
       }
-      t.dispose();
+      t.destroy();
     }
 
     while (!disposedRenderers.isEmpty()) {
