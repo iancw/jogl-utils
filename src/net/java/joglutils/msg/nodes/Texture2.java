@@ -247,10 +247,10 @@ public class Texture2 extends Node {
     if (textureRenderer != null) {
       return textureRenderer.getTexture();
     }
-
+    GL gl = GLContext.getCurrentGL();
     if (dirty) {
       if (texture != null) {
-        texture.destroy(GLContext.getCurrentGL());
+        texture.destroy(gl);
         texture = null;
       }
       texture = TextureIO.newTexture(data);
@@ -258,7 +258,7 @@ public class Texture2 extends Node {
       dirty = false;
     }
     if (subImageDirty) {
-      texture.updateSubImage(subImageData,
+      texture.updateSubImage(gl, subImageData,
                              subImageMipmapLevel,
                              subImageDstX,
                              subImageDstY,

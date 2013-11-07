@@ -503,7 +503,7 @@ public class DisplayShelfRenderer implements GLEventListener {
       // We don't need the image descriptor any more
       graph.imageDescriptor = null;
       graph.sep.replaceChild(clockTexture, graph.texture);
-      graph.texture.setTexture(img, false);
+      graph.texture.setTexture(GLProfile.getDefault(), img, false);
       // Figure out the new aspect ratio based on the image's width and height
       float aspectRatio = (float) img.getWidth() / (float) img.getHeight();
       // Compute new coordinates
