@@ -17,7 +17,7 @@
     <property name="output.tmp.dir"  value="${top.dir}/build/classes" />
     <property name="output.jar"      value="${output.dir}/joglutils.jar" />
     <property name="demos.jar"       value="${output.dir}/joglutils-demos.jar" />
-    <property name="jogl.jar"        value="${top.dir}/../jogl/build/jogl/jogl.all.jar" />
+    <property name="jogl.jar"        value="lib/jogl-all-2.0.jar" /> <!-- Version included in WW 2.0 -->
     <property name="nativewindow.jar" value="${top.dir}/../jogl/build/nativewindow/nativewindow.all.jar" />
     <property name="swinglayout.jar" value="lib/swing-layout-1.0.jar" />
     <property name="jogl-demos-util.jar" value="lib/jogl-demos-util.jar" />
