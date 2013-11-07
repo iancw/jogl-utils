@@ -250,7 +250,7 @@ public class Texture2 extends Node {
 
     if (dirty) {
       if (texture != null) {
-        texture.destroy();
+        texture.destroy(GLContext.getCurrentGL());
         texture = null;
       }
       texture = TextureIO.newTexture(data);
@@ -346,7 +346,7 @@ public class Texture2 extends Node {
       synchronized (this) {
         t = disposedTextures.remove(disposedTextures.size() - 1);
       }
-      t.destroy();
+      t.destroy(GLContext.getCurrentGL());
     }
 
     while (!disposedRenderers.isEmpty()) {
