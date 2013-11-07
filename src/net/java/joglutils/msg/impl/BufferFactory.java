@@ -39,7 +39,7 @@ package net.java.joglutils.msg.impl;
 
 import java.nio.*;
 import java.util.*;
-import com.sun.opengl.util.*;
+import com.jogamp.opengl.util.*;
 
 /** Assists in allocation of direct Buffers. On some platforms when a
     small direct Buffer is allocated there is a large amount of

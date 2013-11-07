@@ -39,7 +39,7 @@
 package net.java.joglutils.model.examples;
 
 import net.java.joglutils.model.*;
-import com.sun.opengl.util.Animator;
+import com.jogamp.opengl.util.Animator;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

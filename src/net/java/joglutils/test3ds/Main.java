@@ -36,7 +36,7 @@
 
 package net.java.joglutils.test3ds;
 
-import com.sun.opengl.util.Animator;
+import com.jogamp.opengl.util.Animator;
 import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
