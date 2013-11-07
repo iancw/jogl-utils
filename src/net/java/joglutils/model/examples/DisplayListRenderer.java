@@ -325,8 +325,8 @@ public class DisplayListRenderer implements iModel3DRenderer {
                 gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_T, GL2.GL_REPEAT);
 
                 // enable, bind and get texture coordinates
-                t.enable();
-                t.bind();
+                t.enable(gl);
+                t.bind(gl);
                 coords = t.getImageTexCoords();
             }
             
@@ -402,7 +402,7 @@ public class DisplayListRenderer implements iModel3DRenderer {
             if (tempObj.hasTexture) {
                 Texture t = texture.get(tempObj.materialID);
                 if (t != null)
-                    t.disable();
+                    t.disable(gl);
             
                 gl.glMatrixMode(GL2.GL_TEXTURE);
                 gl.glPopMatrix();

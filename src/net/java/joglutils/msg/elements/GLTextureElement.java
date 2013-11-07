@@ -89,11 +89,11 @@ public class GLTextureElement extends TextureElement {
     // FIXME: should be smarter about this; if the target is the same
     // for the previous and current textures, just bind the new one
     if (prevTexture != null) {
-      prevTexture.disable();
+      prevTexture.disable(gl);
     }
     if (curTexture != null) {
-      curTexture.enable();
-      curTexture.bind();
+      curTexture.enable(gl);
+      curTexture.bind(gl);
       int glEnvMode = 0;
       switch (texEnvMode) {
         case Texture2.MODULATE:   glEnvMode = GL2.GL_MODULATE; break;
